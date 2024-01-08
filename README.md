@@ -6,3 +6,10 @@
 - By default ***staleTime*** is 0 but we can change it by passing 3rd argument in useQuery with an object with key ***staleTime*** and value as its cache time. 
   
   So, if ***staleTime*** is set for 30sec then it means on first visit api will be fetched and if we do another visit within 30sec then api will be not fetched and stale data will be displayed and ***isFetching*** will be false.
+- By default ***refetchOnMount*** is true but we can change it by passing 3rd argument in useQuery with an object with key ***refetchOnMount*** and value as true/false/always.
+  
+  So, if ***refetchOnMount*** is true it means api will be fetched on every visit. but if it is set to false it means api will be fetched on first visit but will not be fetched on other visits.
+
+- By default ***refetchOnWindowFocus*** is true but we can change it by passing 3rd argument in useQuery with an object with key ***refetchOnWindowFocus*** and value as true/false/always.
+  
+  So, if ***refetchOnWindowFocus*** is true it means api will be fetched on everytime we lose focus on given page window. but if it is set to false it means api will be fetched on first visit but will not be fetched on other visits.  
