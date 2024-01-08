@@ -5,7 +5,13 @@ export const RQSuperHeroesPage = () => {
   const { loading, data,isError,error,refetch } = useQuery("super-heroes", () => {
     return axios.get("http://localhost:4000/superheroes");
   },{
-    enabled: false
+    enabled: false,
+    onSuccess: (data)=>{
+      console.log("data fetched",data)
+    },
+    onError: (error)=>{
+      console.error("fetching failed",error)
+    }
   });
 
   if (loading) {
