@@ -2,8 +2,10 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 export const RQSuperHeroesPage = () => {
-  const { loading, data,isError,error } = useQuery("super-heroes", () => {
+  const { loading, data,isError,error,refetch } = useQuery("super-heroes", () => {
     return axios.get("http://localhost:4000/superheroes");
+  },{
+    enabled: false
   });
 
   if (loading) {
@@ -20,6 +22,7 @@ export const RQSuperHeroesPage = () => {
       {data?.data?.map((hero, index) => {
         return <div key={index}>{hero.name}</div>;
       })}
+      <button onClick={refetch}>Fetch heroes</button>
     </>
   );
 };
