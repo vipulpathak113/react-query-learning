@@ -11,6 +11,9 @@ export const RQSuperHeroesPage = () => {
     },
     onError: (error)=>{
       console.error("fetching failed",error)
+    },
+    select: (data)=>{
+      //used to transform original data
     }
   });
 
