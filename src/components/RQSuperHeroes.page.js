@@ -2,12 +2,16 @@ import { useQuery } from "react-query";
 import axios from "axios";
 
 export const RQSuperHeroesPage = () => {
-  const { loading, data } = useQuery("super-heroes", () => {
-    return axios.get("http://localhost:4000/superheroes");
+  const { loading, data,isError,error } = useQuery("super-heroes", () => {
+    return axios.get("http://localhost:4000/superheroes1");
   });
 
   if (loading) {
     return <h2>Loading...</h2>;
+  }
+
+  if(isError){
+    return <h1>{error.message}</h1>
   }
 
   return (
