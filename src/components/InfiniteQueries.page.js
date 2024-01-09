@@ -1,11 +1,19 @@
+import {
+  Box,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import axios from "axios";
 import React, { Fragment } from "react";
 import { useInfiniteQuery } from "react-query";
 
 export const InfiniteQueriesPage = () => {
-  const fetchColors = (pageParams = 1) => {
+  const fetchColors = ({ pageParam = 1 }) => {
     return axios.get(
-      `http://localhost:4000/colors?_limit=2&_page=${pageParams}`
+      `http://localhost:4000/colors?_limit=2&_page=${pageParam}`
     );
   };
 
@@ -24,28 +32,41 @@ export const InfiniteQueriesPage = () => {
   );
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <Typography variant="h5">Loading...</Typography>;
   }
 
   return (
     <>
-      <div>Paginated Queries Page</div>
+      <Typography variant="h4" gutterBottom>
+        Paginated Queries Page
+      </Typography>
 
-      <div>
-        <h3>Colors Data</h3>
-        <div>
+      <Box>
+        <Typography variant="h5" gutterBottom>
+          Colors Data
+        </Typography>
+        <List>
           {data?.pages.map((group, index) => (
             <Fragment key={index}>
               {group.data.map((color) => (
-                <div key={color.id}>{color.label}</div>
+                <ListItem key={color.id}>
+                  <ListItemText>{color.label}</ListItemText>
+                </ListItem>
               ))}
             </Fragment>
           ))}
-        </div>
-      </div>
-      <button onClick={fetchNextPage} disabled={!hasNextPage}>
+        </List>
+      </Box>
+      <Button
+        variant="contained"
+        color="secondary"
+        mt={2}
+        mr={2}
+        onClick={fetchNextPage}
+        disabled={!hasNextPage}
+      >
         Load More
-      </button>
+      </Button>
     </>
   );
 };

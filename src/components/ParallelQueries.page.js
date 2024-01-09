@@ -1,37 +1,45 @@
-import React from 'react'
+import React from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
-
+import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
 
 export const ParallelQueriesPage = () => {
+  const fetchSuperheroes = () => {
+    return axios.get("http://localhost:4000/superheroes");
+  };
 
-    const fetchSuperheroes=()=>{
-        return axios.get('http://localhost:4000/superheroes')
-    }
+  const fetchFriends = () => {
+    return axios.get("http://localhost:4000/friends");
+  };
 
-    const fetchFriends=()=>{
-        return axios.get('http://localhost:4000/friends')
-    }
-
-    const {data:superheroes}= useQuery('super-heroes',fetchSuperheroes)
-    const {data:friends}= useQuery('friends',fetchFriends)
+  const { data: superheroes } = useQuery("super-heroes", fetchSuperheroes);
+  const { data: friends } = useQuery("friends", fetchFriends);
 
   return (
     <>
-    <h1>Parallel Queries Page</h1>
+      <Typography variant="h4">Parallel Queries Page</Typography>
 
-    <div>
-        <h3>Superheroes Data</h3>
-        <div>{superheroes?.data.map(hero=>(
-            <div key={hero.id}>{hero.name}</div>
-        ))}</div>
-    </div>
-    <div>
-        <h3>Friends Data</h3>
-        <div>{friends?.data.map(friend=>(
-            <div key={friend.id}>{friend.name}</div>
-        ))}</div>
-    </div>
+      <Box>
+        <Typography variant="h5">Superheroes Data</Typography>
+        <List>
+          {superheroes?.data.map((hero) => (
+            <ListItem key={hero.id}>
+              {" "}
+              <ListItemText primary={hero.name} />
+            </ListItem>
+          ))}
+        </List>
+      </Box>
+      <Box>
+        <Typography variant="h5">Friends Data</Typography>
+        <List>
+          {friends?.data.map((friend) => (
+            <ListItem key={friend.id}>
+              <ListItemText primary={friend.name} />
+            </ListItem>
+          ))}
+        </List>
+      </Box>
     </>
-  )
-}
+  );
+};

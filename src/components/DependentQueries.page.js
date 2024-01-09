@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { List, ListItem, ListItemText, Typography } from "@mui/material";
 
 export const DependentQueriesPage = ({ email }) => {
   const fetchUserByEmail = (email) => {
@@ -24,7 +25,19 @@ export const DependentQueriesPage = ({ email }) => {
     }
   );
 
-  console.log(courses);
-
-  return <div>DependentQueries.page</div>;
+  return (
+    <>
+      <Typography variant="h4" gutterBottom>RQ Dependent Query Page</Typography>
+      <Typography variant="body1" gutterBottom>{courses?.data.id}</Typography>
+      <List>
+        {courses?.data?.courses.map((course, index) => {
+          return (
+            <ListItem key={index}>
+              <ListItemText primary={course} />
+            </ListItem>
+          );
+        })}
+      </List>
+    </>
+  );
 };

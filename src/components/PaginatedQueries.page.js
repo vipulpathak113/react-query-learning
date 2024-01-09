@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 
 export const PaginatedQueriesPage = () => {
   const fetchColors = (pageNumber) => {
@@ -21,25 +28,40 @@ export const PaginatedQueriesPage = () => {
 
   return (
     <>
-      <div>Paginated Queries Page</div>
+      <Typography variant="h4" gutterBottom>
+        Paginated Queries Page
+      </Typography>
 
-      <div>
-        <h3>Colors Data</h3>
-        <div>
-          {data?.data.map((color) => (
-            <div key={color.id}>{color.label}</div>
-          ))}
-        </div>
-      </div>
-      <button
+      <Typography variant="h5" gutterBottom>
+        Colors Data
+      </Typography>
+
+      <List>
+        {data?.data.map((color) => (
+          <ListItem key={color.id}>
+            <ListItemText primary={color.label} />
+          </ListItem>
+        ))}
+      </List>
+
+      <Button
+        id=""
+        variant="contained"
+        sx={{ marginX: 3 }}
+        color="secondary"
         onClick={() => setPageNumber((page) => page - 1)}
         disabled={pageNumber === 1}
       >
         Prev{" "}
-      </button>
-      <button onClick={() => setPageNumber((page) => page + 1)} disabled={pageNumber === 4}>
+      </Button>
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => setPageNumber((page) => page + 1)}
+        disabled={pageNumber === 4}
+      >
         Next{" "}
-      </button>
+      </Button>
     </>
   );
 };

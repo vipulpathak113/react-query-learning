@@ -1,6 +1,5 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { HomePage } from "./components/Home.page";
 import { RQSuperHeroesPage } from "./components/RQSuperHeroes.page";
 import { SuperHeroesPage } from "./components/SuperHeroes.page";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -11,6 +10,8 @@ import { DynamicParallelPage } from "./components/DynamicParallel.page";
 import { DependentQueriesPage } from "./components/DependentQueries.page";
 import { PaginatedQueriesPage } from "./components/PaginatedQueries.page";
 import { InfiniteQueriesPage } from "./components/InfiniteQueries.page";
+import { Box } from "@mui/material";
+import { Navbar } from "./components/Navbar";
 
 const queryClient = new QueryClient();
 
@@ -18,37 +19,25 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/super-heroes">Traditional Super Heroes</Link>
-              </li>
-              <li>
-                <Link to="/rq-super-heroes">RQ Super Heroes</Link>
-              </li>
-            </ul>
-          </nav>
+        <Box>
+          <Navbar/>
           <Switch>
-          <Route exact path="/rq-infinite">
+            <Route exact path="/rq-infinite">
               <InfiniteQueriesPage />
             </Route>
-          <Route exact path="/rq-paginate">
+            <Route exact path="/rq-paginate">
               <PaginatedQueriesPage />
             </Route>
-          <Route exact path="/rq-dependent">
+            <Route exact path="/rq-dependent">
               <DependentQueriesPage email={"vipul@pathak.com"} />
             </Route>
             <Route exact path="/rq-parallel">
               <ParallelQueriesPage />
             </Route>
             <Route exact path="/rq-dynamic-parallel">
-              <DynamicParallelPage heroIds={[1,3]} />
+              <DynamicParallelPage heroIds={[1, 3]} />
             </Route>
-            <Route path="/super-heroes">
+            <Route exact path="/">
               <SuperHeroesPage />
             </Route>
             <Route path="/rq-super-heroes">
@@ -57,11 +46,8 @@ function App() {
             <Route exact path="/rq-super-hero/:heroId">
               <RQSuperHeroPage />
             </Route>
-            <Route exact path="/">
-              <HomePage />
-            </Route>
           </Switch>
-        </div>
+        </Box>
       </Router>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
     </QueryClientProvider>
