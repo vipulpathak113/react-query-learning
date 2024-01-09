@@ -16,7 +16,7 @@ export const RQSuperHeroPage = () => {
 
   return (
     <div>
-      RQSuperHero.page
+      RQ SuperHero Page
       <div>
         {data?.data.name} {data?.data.alterEgo}
       </div>
