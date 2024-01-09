@@ -27,15 +27,43 @@ export const useSuperheroesData = () => {
 
 export const useAddSuperheroData = () => {
   const queryClient = useQueryClient();
+
   return useMutation(addSuperhero, {
-    onSuccess: (data) => {
-      queryClient.setQueryData("super-heroes", (oldData) => {
+    // onSuccess: data => {
+    //   /** Query Invalidation Start */
+    //   // queryClient.invalidateQueries('super-heroes')
+    //   /** Query Invalidation End */
+
+    //   /** Handling Mutation Response Start */
+    // queryClient.setQueryData('super-heroes', oldQueryData => {
+    //   return {
+    //     ...oldQueryData,
+    //     data: [...oldQueryData.data, data.data]
+    //   }
+    // })
+    //   /** Handling Mutation Response Start */
+    // },
+    /**Optimistic Update Start */
+    onMutate: async (newHero) => {
+      await queryClient.cancelQueries("super-heroes");
+      const previousHeroData = queryClient.getQueryData("super-heroes");
+      queryClient.setQueryData("super-heroes", (oldQueryData) => {
         return {
-          ...oldData,
-          data: [...oldData.data, data.data],
+          ...oldQueryData,
+          data: [
+            ...oldQueryData.data,
+            { id: oldQueryData?.data?.length + 1, ...newHero },
+          ],
         };
       });
+      return { previousHeroData };
     },
-    // queryClient.invalidateQueries("super-heroes")
+    onError: (_err, _newTodo, context) => {
+      queryClient.setQueryData("super-heroes", context.previousHeroData);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("super-heroes");
+    },
+    /**Optimistic Update End */
   });
 };
