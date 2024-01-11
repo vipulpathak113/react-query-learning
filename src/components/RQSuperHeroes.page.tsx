@@ -13,18 +13,21 @@ import {
   Typography,
 } from "@mui/material";
 
+import React from "react";
+import { Hero } from "../types/types";
+
 export const RQSuperHeroesPage = () => {
   const [name, setName] = useState("");
   const [alterEgo, setAlterEgo] = useState("");
 
-  const { loading, data, isError, error, refetch } = useSuperheroesData();
+  const { isLoading, data, isError, error, refetch } = useSuperheroesData();
   const { mutate: addHero } = useAddSuperheroData();
-  if (loading) {
+  if (isLoading) {
     return <h2>Loading...</h2>;
   }
 
   if (isError) {
-    return <h1>{error.message}</h1>;
+    return <h1>{(error as any).message}</h1>;
   }
 
   const handleAddHeroClick = () => {
@@ -47,6 +50,7 @@ export const RQSuperHeroesPage = () => {
           label="Name"
           value={name}
           variant="filled"
+          size="small"
           onChange={(e) => setName(e.target.value)}
         />
 
@@ -55,6 +59,7 @@ export const RQSuperHeroesPage = () => {
           label="Alter Ego"
           value={alterEgo}
           variant="filled"
+          size="small"
           onChange={(e) => setAlterEgo(e.target.value)}
         />
       </Box>
@@ -66,7 +71,7 @@ export const RQSuperHeroesPage = () => {
         Add Hero{" "}
       </Button>
       <List>
-        {data?.data?.map((hero) => {
+        {data?.data?.map((hero:Hero) => {
           return (
             <ListItem key={hero.id}>
               <Link to={`/rq-super-hero/${hero.id}`} key={hero.id}>
@@ -76,9 +81,9 @@ export const RQSuperHeroesPage = () => {
           );
         })}
       </List>
-      <Button onClick={refetch} variant="contained" sx={{ marginY: 2 }}>
+      {/* <Button onClick={refetch} variant="contained" sx={{ marginY: 2 }}>
         Fetch heroes
-      </Button>
+      </Button> */}
     </>
   );
 };

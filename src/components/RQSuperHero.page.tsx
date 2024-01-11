@@ -5,21 +5,21 @@ import { Box, Typography } from "@mui/material";
 
 export const RQSuperHeroPage = () => {
   const { heroId } = useParams();
-  const { isLoading, data, isError, error } = useSuperheroData(heroId);
+  const { isLoading, data, isError, error } = useSuperheroData(Number(heroId));
 
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
 
   if (isError) {
-    return <h2>{error.message}</h2>;
+    return <h2>{(error as any).message}</h2>;
   }
 
   return (
     <Box>
       <Typography variant="h4" gutterBottom> RQ SuperHero Page</Typography>
       <Box>
-      <Typography variant="body1">{data?.data.name} {data?.data.alterEgo}</Typography>
+        <Typography variant="body1">{data?.data.name} {data?.data.alterEgo}</Typography>
       </Box>
     </Box>
   );

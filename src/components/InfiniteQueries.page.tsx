@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import React, { Fragment } from "react";
 import { useInfiniteQuery } from "react-query";
+import { Color } from "../types/types";
 
 export const InfiniteQueriesPage = () => {
   const fetchColors = ({ pageParam = 1 }) => {
@@ -17,7 +18,7 @@ export const InfiniteQueriesPage = () => {
     );
   };
 
-  const { isLoading, data, hasNextPage, fetchNextPage } = useInfiniteQuery(
+  const { isLoading, data, hasNextPage,fetchNextPage } = useInfiniteQuery(
     ["colors"],
     fetchColors,
     {
@@ -28,6 +29,7 @@ export const InfiniteQueriesPage = () => {
           return undefined;
         }
       },
+      
     }
   );
 
@@ -48,7 +50,7 @@ export const InfiniteQueriesPage = () => {
         <List>
           {data?.pages.map((group, index) => (
             <Fragment key={index}>
-              {group.data.map((color) => (
+              {group.data.map((color:Color) => (
                 <ListItem key={color.id}>
                   <ListItemText>{color.label}</ListItemText>
                 </ListItem>
@@ -60,9 +62,7 @@ export const InfiniteQueriesPage = () => {
       <Button
         variant="contained"
         color="secondary"
-        mt={2}
-        mr={2}
-        onClick={fetchNextPage}
+        onClick={()=>{fetchNextPage()}}
         disabled={!hasNextPage}
       >
         Load More

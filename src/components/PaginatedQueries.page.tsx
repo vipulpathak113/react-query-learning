@@ -8,9 +8,10 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { Color } from "../types/types";
 
 export const PaginatedQueriesPage = () => {
-  const fetchColors = (pageNumber) => {
+  const fetchColors = (pageNumber: number) => {
     return axios.get(
       `http://localhost:4000/colors?_limit=2&_page=${pageNumber}`
     );
@@ -37,7 +38,7 @@ export const PaginatedQueriesPage = () => {
       </Typography>
 
       <List>
-        {data?.data.map((color) => (
+        {data?.data.map((color: Color) => (
           <ListItem key={color.id}>
             <ListItemText primary={color.label} />
           </ListItem>

@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { Friend, Hero } from "../types/types";
 
 export const ParallelQueriesPage = () => {
   const fetchSuperheroes = () => {
@@ -22,7 +23,7 @@ export const ParallelQueriesPage = () => {
       <Box>
         <Typography variant="h5">Superheroes Data</Typography>
         <List>
-          {superheroes?.data.map((hero) => (
+          {superheroes?.data.map((hero: Hero) => (
             <ListItem key={hero.id}>
               {" "}
               <ListItemText primary={hero.name} />
@@ -33,7 +34,7 @@ export const ParallelQueriesPage = () => {
       <Box>
         <Typography variant="h5">Friends Data</Typography>
         <List>
-          {friends?.data.map((friend) => (
+          {friends?.data.map((friend: Friend) => (
             <ListItem key={friend.id}>
               <ListItemText primary={friend.name} />
             </ListItem>

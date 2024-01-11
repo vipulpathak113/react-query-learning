@@ -3,12 +3,12 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { List, ListItem, ListItemText, Typography } from "@mui/material";
 
-export const DependentQueriesPage = ({ email }) => {
-  const fetchUserByEmail = (email) => {
+export const DependentQueriesPage = ({ email }: { email: string }) => {
+  const fetchUserByEmail = (email: string) => {
     return axios.get(`http://localhost:4000/users/${email}`);
   };
 
-  const fetchCourseByChannelId = (id) => {
+  const fetchCourseByChannelId = (id: number) => {
     return axios.get(`http://localhost:4000/channels/${id}`);
   };
 
@@ -30,7 +30,7 @@ export const DependentQueriesPage = ({ email }) => {
       <Typography variant="h4" gutterBottom>RQ Dependent Query Page</Typography>
       <Typography variant="body1" gutterBottom>{courses?.data.id}</Typography>
       <List>
-        {courses?.data?.courses.map((course, index) => {
+        {courses?.data?.courses.map((course: number[], index: number) => {
           return (
             <ListItem key={index}>
               <ListItemText primary={course} />

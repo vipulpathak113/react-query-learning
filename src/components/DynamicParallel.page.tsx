@@ -3,8 +3,8 @@ import axios from "axios";
 import { useQueries } from "react-query";
 import { Box, List, ListItem, ListItemText, Typography } from "@mui/material";
 
-export const DynamicParallelPage = ({ heroIds }) => {
-  const fetchSuperhero = (id) => {
+export const DynamicParallelPage = ({ heroIds }: { heroIds: number[] }) => {
+  const fetchSuperhero = (id: number) => {
     return axios.get(`http://localhost:4000/superheroes/${id}`);
   };
 

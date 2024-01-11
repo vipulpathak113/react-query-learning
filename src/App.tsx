@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { RQSuperHeroesPage } from "./components/RQSuperHeroes.page";
 import { SuperHeroesPage } from "./components/SuperHeroes.page";
@@ -12,6 +12,7 @@ import { PaginatedQueriesPage } from "./components/PaginatedQueries.page";
 import { InfiniteQueriesPage } from "./components/InfiniteQueries.page";
 import { Box } from "@mui/material";
 import { Navbar } from "./components/Navbar";
+import React from "react";
 
 const queryClient = new QueryClient();
 
@@ -20,33 +21,17 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Box>
-          <Navbar/>
-          <Switch>
-            <Route exact path="/rq-infinite">
-              <InfiniteQueriesPage />
-            </Route>
-            <Route exact path="/rq-paginate">
-              <PaginatedQueriesPage />
-            </Route>
-            <Route exact path="/rq-dependent">
-              <DependentQueriesPage email={"vipul@pathak.com"} />
-            </Route>
-            <Route exact path="/rq-parallel">
-              <ParallelQueriesPage />
-            </Route>
-            <Route exact path="/rq-dynamic-parallel">
-              <DynamicParallelPage heroIds={[1, 3]} />
-            </Route>
-            <Route exact path="/">
-              <SuperHeroesPage />
-            </Route>
-            <Route path="/rq-super-heroes">
-              <RQSuperHeroesPage />
-            </Route>
-            <Route exact path="/rq-super-hero/:heroId">
-              <RQSuperHeroPage />
-            </Route>
-          </Switch>
+          <Navbar />
+          <Routes>
+            <Route path="/rq-infinite" element={<InfiniteQueriesPage />} />
+            <Route path="/rq-paginate" element={<PaginatedQueriesPage />} />
+            <Route path="/rq-dependent" element={<DependentQueriesPage email={"vipul@pathak.com"} />} />
+            <Route path="/rq-parallel" element={<ParallelQueriesPage />} />
+            <Route path="/rq-dynamic-parallel" element={<DynamicParallelPage heroIds={[1, 3]} />} />
+            <Route path="/" element={<SuperHeroesPage />} />
+            <Route path="/rq-super-heroes" element={<RQSuperHeroesPage />} />
+            <Route path="/rq-super-hero/:heroId" element={<RQSuperHeroPage />} />
+          </Routes>
         </Box>
       </Router>
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
